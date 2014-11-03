@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Tile extends JLabel {
-  private int content; // -1=wall, 0=blank, 1=dot, 2=energizer 
+  private int content; // -2=barrier -1=wall, 0=blank, 1=dot, 2=energizer 
   private int wallType; 
   // ======== wallType definitions ========
   // 0=none

@@ -40,7 +40,9 @@ public class Map extends JPanel {
       for (int j=0; j<sizey; j++) {
         for (int i=0; i<sizex; i++) {
           String s = scan.next();
-          if (s.compareTo("=") == 0) // wall
+          if (s.compareTo("-") == 0) // barrier
+            a[j][i] = -2;
+          else if (s.compareTo("=") == 0) // wall
             a[j][i] = -1;
           else if (s.compareTo("0") == 0) // blank
             a[j][i] = 0;
@@ -70,6 +72,10 @@ public class Map extends JPanel {
           map[j][i] = new Tile(1,0);
         else if (a[j][i] == 2)
           map[j][i] = new Tile(2,0);
+        
+        // barriers
+        else if (a[j][i] == -2)
+          map[j][i] = new Tile(-2,0);
           
         else { // walls
           // left
@@ -79,10 +85,10 @@ public class Map extends JPanel {
           if (a[j-1][i]==-1 && a[j+1][i]==-1 && a[j][i-1]>=0 && a[j][i+1]<=0)
             map[j][i] = new Tile(-1, 4);
           // bottom
-          if (a[j][i-1]==-1 && a[j][i+1]==-1 && a[j-1][i]>=0 && a[j+1][i]<=0)
+          if (a[j][i-1]<=-1 && a[j][i+1]<=-1 && a[j-1][i]>=0 && a[j+1][i]<=0)
             map[j][i] = new Tile(-1, 6);
           // top
-          if (a[j][i-1]==-1 && a[j][i+1]==-1 && a[j+1][i]>=0 && a[j-1][i]<=0)
+          if (a[j][i-1]<=-1 && a[j][i+1]<=-1 && a[j+1][i]>=0 && a[j-1][i]<=0)
             map[j][i] = new Tile(-1, 2);
             
           // topleft
@@ -152,6 +158,8 @@ public class Map extends JPanel {
           if (t.getWallType() == 8)
             icon = new ImageIcon("graphics/left.png");
         } 
+        else if (t.getContent() == -2)
+          icon = new ImageIcon("graphics/barrier.png");
         else if (t.getContent() == 1)
           icon = new ImageIcon("graphics/dot.png");
         else if (t.getContent() == 2)

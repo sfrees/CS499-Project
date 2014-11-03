@@ -9,12 +9,20 @@
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.Dimension;
 
 public class Pacman extends JLabel implements KeyListener {
   private static int x;
   private static int y;
   private static int dir; // 0=up, 1=right, 2=down, 3=left
   private static int dirReq; // set to the direction that is being requested
+  private static boolean closed = true;
+  
+  private static ImageIcon p = new ImageIcon("graphics/pacman.png");
+  private static ImageIcon p0 = new ImageIcon("graphics/pacman0.png");
+  private static ImageIcon p1 = new ImageIcon("graphics/pacman1.png");
+  private static ImageIcon p2 = new ImageIcon("graphics/pacman2.png");
+  private static ImageIcon p3 = new ImageIcon("graphics/pacman3.png");
   
   public Pacman() {
     super();
@@ -23,6 +31,9 @@ public class Pacman extends JLabel implements KeyListener {
     y = 432;
     dir = 3;
     dirReq = 3;
+    setPreferredSize(new Dimension(18,18));
+    setOpaque(true);
+    setIcon(new ImageIcon("graphics/pacman.png"));
   }
   
   public static int getXPos() {
@@ -52,7 +63,29 @@ public class Pacman extends JLabel implements KeyListener {
   public static void setYPos(int yPos) {
     y = yPos;
   }
-
+  
+  public void toggleIcon() {
+    if (closed){
+      closed = false;
+      switch (dir) {
+        case 0:
+          setIcon(p0);
+          break;
+        case 1:
+          setIcon(p1);
+          break;
+        case 2:
+          setIcon(p2);
+          break;
+        case 3:
+          setIcon(p3);
+          break;
+      }
+    }else {
+      setIcon(p);
+      closed = true;
+    }
+  }
   
     @Override
   public void keyTyped(KeyEvent e) {
