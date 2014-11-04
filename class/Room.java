@@ -122,13 +122,13 @@ public class Room {
       int i = (pacman.getXPos()+9)/18;
       int j = (pacman.getYPos()+9)/18;
       int dir = pacman.getDir();
-      if (dir==0 && map.getTile(j-1,i).getContent()==-1)
+      if (dir==0 && map.getTile(j-1,i).getContent()<=-1)
         return true;
-      if (dir==1 && map.getTile(j,i+1).getContent()==-1)
+      if (dir==1 && map.getTile(j,i+1).getContent()<=-1)
         return true;
-      if (dir==2 && map.getTile(j+1,i).getContent()==-1)
+      if (dir==2 && map.getTile(j+1,i).getContent()<=-1)
         return true;
-      if (dir==3 && map.getTile(j,i-1).getContent()==-1)
+      if (dir==3 && map.getTile(j,i-1).getContent()<=-1)
         return true;
     }
     return false;
@@ -145,8 +145,7 @@ public class Room {
   
   // Called to update components of Pacman.
   private static void updatePacman() {
-    int speed = 2; // the magnitude of the position offset
-    
+    int speed = 1; // the magnitude of the position offset
     // update dir to reflect user requested direction
     if (canTurn()) {
       pacman.setDir(pacman.getDirReq());
@@ -160,7 +159,7 @@ public class Room {
       pacman.setXPos(18);
       
     if (!hasCollision()) {
-      if (clock % 5 == 0) // toggle pacman icon when not stopped
+      if (clock % 15 == 0) // toggle pacman icon when not stopped
         pacman.toggleIcon();
       
       // offset position to simulate movement in given direction
@@ -229,7 +228,7 @@ public class Room {
     while(true) {
       update();
       try {
-        Thread.sleep(10);
+        Thread.sleep(7);
       } catch (Exception e) {}
     }
   }
