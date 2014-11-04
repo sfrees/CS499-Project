@@ -11,38 +11,34 @@ public class Room extends JPanel implements ActionListener, KeyListener{
 	int x = 0, y = 0, speedX = 0, speedY = 0; 
 	// x and y are the position, speed is the speed of the object on the different axes
 
-	public Room(){
-		t.start();
-		addKeyListener(this);
-		setFocusable(true);
-		setFocusTraversalKeysEnabled(false); //used to disable shift and tab
-	}
 	public void paintComponent(Graphics PacMan){
 		super.paintComponent(PacMan);
-		for(int i = 10; i<300; i=i+20){
+		//Just rows of dots
+		for(int i = 25; i<300; i=i+25){
 			PacMan.setColor(Color.RED);
-			PacMan.fillOval(i, 25, 10, 10);
+			PacMan.fillRect(i, 25, 10, 10);
 		}
-		for(int i = 10; i<300; i=i+20){
+		for(int i = 25; i<300; i=i+25){
 			PacMan.setColor(Color.RED);
-			PacMan.fillOval(i, 75, 10, 10);
+			PacMan.fillRect(i, 75, 10, 10);
 		}
-		for(int i = 10; i<300; i=i+20){
+		for(int i = 25; i<300; i=i+25){
 			PacMan.setColor(Color.RED);
-			PacMan.fillOval(i, 125, 10, 10);
+			PacMan.fillRect(i, 125, 10, 10);
 		}
-		for(int i = 10; i<300; i=i+20){
+		for(int i = 25; i<300; i=i+25){
 			PacMan.setColor(Color.RED);
-			PacMan.fillOval(i, 175, 10, 10);
+			PacMan.fillRect(i, 175, 10, 10);
 		}
-		for(int i = 10; i<300; i=i+20){
+		for(int i = 25; i<300; i=i+25){
 			PacMan.setColor(Color.RED);
-			PacMan.fillOval(i, 225, 10, 10);
+			PacMan.fillRect(i, 225, 10, 10);
 		}
-		for(int i = 10; i<300; i=i+20){
+		for(int i = 25; i<300; i=i+25){
 			PacMan.setColor(Color.RED);
-			PacMan.fillOval(i, 275, 10, 10);
+			PacMan.fillRect(i, 275, 10, 10);
 		}
+		//Used as the simple pacman
 		PacMan.setColor(Color.YELLOW);
 		PacMan.fillOval(x, y, 50, 50);
 	}
@@ -51,17 +47,17 @@ public class Room extends JPanel implements ActionListener, KeyListener{
 			speedX = 0;
 			x = 0;
 		}
-		if (x > 230){
+		if (x > 260){
 			speedX = 0;
-			x = 230;
+			x = 260;
 		}
 		if (y < 0){
 			speedY = 0;
 			y = 0;
 		}
-		if (y > 210){
+		if (y > 206){
 			speedY = 0;
-			y = 210;			
+			y = 206;			
 		}
 		//above section is used to prevent dot from moving outside of the boundary	
 		x = x + speedX;
@@ -70,6 +66,7 @@ public class Room extends JPanel implements ActionListener, KeyListener{
 	}
 	public void keyPressed(KeyEvent e) {
 		int c = e.getKeyCode(); //gets the key commands codes
+		//If placed on a graph, this would be in the 4th quadrant
 		if (c == KeyEvent.VK_UP){
 			speedX = 0;
 			speedY = -1;
@@ -95,11 +92,18 @@ public class Room extends JPanel implements ActionListener, KeyListener{
 		//speedY = 0;
 		//stops the dot from moving when arrow key release
 	}
-
+	
+	public Room(){
+		t.start();
+		addKeyListener(this);
+		setFocusable(true);
+		setFocusTraversalKeysEnabled(false); //used to disable shift and tab
+	}
+	
 	public static void main(String args[]){
 		Room q = new Room();
-		JFrame room = new JFrame("Incomplete PacMan");
-		room.setSize(300, 300);
+		JFrame room = new JFrame("Moving object with dots");
+		room.setSize(325, 300);
 		room.setVisible(true);
 		room.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		room.add(q);
