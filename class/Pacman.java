@@ -35,6 +35,7 @@ public class Pacman extends Character implements KeyListener {
     setXPos(sX);
     setYPos(sY);
     setDir(3);
+    dirReq = 3;
     setIcon(p3);
   }
   

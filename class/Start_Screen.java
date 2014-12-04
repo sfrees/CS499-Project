@@ -7,8 +7,12 @@ public class Start_Screen extends JFrame implements ActionListener{
 	private JFrame Start;
 	private JButton begin;
 	private JButton end;
+  
+  public boolean active;
 	
 	public Start_Screen(){
+    active = true;
+  
 		//Creates the frame
 	    Start = new JFrame("Simple Start");
 	    Start.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
@@ -65,10 +69,11 @@ public class Start_Screen extends JFrame implements ActionListener{
 			//Can't figure out how to make the game to start by calling the room
 			//using what is below the program will lock up.
 			//Room r = new Room();//Will lock up on my system
-			
-			System.exit(0);
-		}else if(e.getSource() == end){
 			Start.dispose();
+      active = false;
+		}else if(e.getSource() == end){
+			System.exit(0);
+			//Start.dispose();
 		}
 	}
 }

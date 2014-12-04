@@ -101,26 +101,31 @@ public class Room {
       for (int i=0; i<30; i++) {
         if (a[j][i] == 4) { // blinky
           blinky = new Ghost(i*18, j*18, 4);
+          blinky.setOpaque(false);
           chars.add(blinky);
           a[j][i] = 0;
         }
         else if (a[j][i] == 5) { // pinky
           pinky = new Ghost(i*18, j*18, 5);
+          pinky.setOpaque(false);
           chars.add(pinky);
           a[j][i] = 0;
         }
         else if (a[j][i] == 6) { // inky
           inky = new Ghost(i*18, j*18, 6);
+          inky.setOpaque(false);
           chars.add(inky);
           a[j][i] = 0;
         }
         else if (a[j][i] == 7) { // clyde
           clyde = new Ghost(i*18, j*18, 7);
+          clyde.setOpaque(false);
           chars.add(clyde);
           a[j][i] = 0;
         }
         else if (a[j][i] == 8) { // pacman
           pacman = new Pacman(i*18, j*18);
+          pacman.setOpaque(false);
           chars.add(pacman);
           win.addKeyListener(pacman);
           a[j][i] = 0;
@@ -226,7 +231,11 @@ public class Room {
       if (g.isScared()) {
         int difX = g.getXPos() - pacman.getXPos();
         int difY = g.getYPos() - pacman.getYPos();
-        if ((difX*difX) + (difY*difY) <= 9) {
+        if ((difX*difX) + (difY*difY) <= 300) {
+          try {
+            refreshPositions();
+            Thread.sleep(500);
+          } catch (Exception e) {}
           g.kill();
           addScore((int) (200*Math.pow(2, eventCount)));
           eventCount++;
@@ -235,7 +244,7 @@ public class Room {
       else {
         int difX = g.getXPos() - pacman.getXPos();
         int difY = g.getYPos() - pacman.getYPos();
-        if ((difX*difX) + (difY*difY) <= 324)
+        if ((difX*difX) + (difY*difY) <= 300)
           killPacman();
       }
         
@@ -417,18 +426,19 @@ public class Room {
         
         if (x >= 1000000)
           x = 0;
-        if (x % 10 == 0) 
+        if (x % 10 == 0) {
           update();
+          if (start){
+            start = false;
+            readyLabel.setLocation(new Point(9*18+9, 18*18));
+            readyLabel.setVisible(true);
+            refreshPositions();
+            Thread.sleep(2000);
+            readyLabel.setVisible(false);
+          }
+        }
           
         Thread.sleep(2);
-        if (start){
-          start = false;
-          refreshPositions();
-          readyLabel.setLocation(new Point(9*18+9, 18*18));
-          readyLabel.setVisible(true);
-          Thread.sleep(2000);
-          readyLabel.setVisible(false);
-        }
       }
     } catch (Exception e) {}
   }
