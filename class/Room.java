@@ -235,7 +235,7 @@ public class Room {
       else {
         int difX = g.getXPos() - pacman.getXPos();
         int difY = g.getYPos() - pacman.getYPos();
-        if ((difX*difX) + (difY*difY) <= 81)
+        if ((difX*difX) + (difY*difY) <= 324)
           killPacman();
       }
         
@@ -340,6 +340,10 @@ public class Room {
   }
   
   public static void killPacman() {
+    try {
+      refreshPositions();
+      Thread.sleep(2000);
+    } catch (Exception e) {}
     pacman.kill();
     updateHUD();
     System.out.println("Lost a life!");
