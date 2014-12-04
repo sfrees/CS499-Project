@@ -28,11 +28,18 @@ public class Room {
   private static int eventCount = 0;
   
   private static boolean scatter, scare, start;
+  public static boolean active, userWon;
   
 
   public Room() {
     init();
+    active = true;
+    score = 0;
     startGame();
+  }
+  
+  public static int getLives() {
+    return pacman.getLives();
   }
   
   // Called to initialize window framework.
@@ -333,7 +340,9 @@ public class Room {
   }
   
   public static void addScore(int n) {
-    System.out.println(n + " points");
+    if (n>50) {
+      System.out.println(n + " points");
+    }
     score += n;
     updateHUD();
   }
@@ -371,9 +380,10 @@ public class Room {
   }
   
   public static void gameOver() {
-    //printScore();
-    //if (exitGreeting())
     System.out.println("Game Over.");
+    active = false;
+    userWon = false;
+    win.dispose();
   }
   
   public static boolean winCondition() {
@@ -385,7 +395,9 @@ public class Room {
       }
     }
     System.out.println("You Win!");
-    System.exit(1);
+    active = false;
+    userWon = true;
+    win.dispose();
     return true;
   }
   
@@ -412,6 +424,10 @@ public class Room {
     }
   }
   
+  public static int getScore() {
+    return score;
+  }
+  
   // Runs the main loop of the program.
   public static void startGame() {
     System.out.println("Start Game...");
@@ -419,7 +435,7 @@ public class Room {
     start = true;
     try {
     
-      while(true) {
+      while(active) {
         
         refreshPositions();
         x++;
