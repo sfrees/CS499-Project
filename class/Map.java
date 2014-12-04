@@ -25,10 +25,11 @@ public class Map extends JPanel {
   }
   
   // begin initialization process
-  public void init(String filename) {
+  public int[][] init(String filename) {
     int[][] a = readMapFile(filename);
     buildMap(a);
     paintMap();
+    return a;
   }
   
   // read in the file and return array
@@ -48,8 +49,22 @@ public class Map extends JPanel {
             a[j][i] = 0;
           else if (s.compareTo("1") == 0) // dot
             a[j][i] = 1;
-          else // energizer
+          else if (s.compareTo("2") == 0) // energizer
             a[j][i] = 2;
+          else if (s.compareTo("3") == 0) // fruit
+            a[j][i] = 3;
+          else if (s.compareTo("4") == 0) // ghost: Blinky
+            a[j][i] = 4;
+          else if (s.compareTo("5") == 0) // ghost: Pinky
+            a[j][i] = 5;
+          else if (s.compareTo("6") == 0) // ghost: Inky
+            a[j][i] = 6;
+          else if (s.compareTo("7") == 0) // ghost: Clyde
+            a[j][i] = 7;
+          else if (s.compareTo("8") == 0) // Pacman
+            a[j][i] = 8;
+          else
+            System.err.println("Illegal character in map file.");
         }
       }
     
@@ -65,8 +80,12 @@ public class Map extends JPanel {
     for (int j=0; j<sizey; j++) {
       for (int i=0; i<sizex; i++) {
         map[j][i] = new Tile(9, 9);
+        // characters
+        if (a[j][i] >= 3)
+          map[j][i] = new Tile(0,0); // blank
+        
         // dots/spaces
-        if (a[j][i] == 0) 
+        else if (a[j][i] == 0) 
           map[j][i] = new Tile(0,0);
         else if (a[j][i] == 1)
           map[j][i] = new Tile(1,0);

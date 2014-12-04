@@ -10,7 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Tile extends JLabel {
-  private int content; // -2=barrier -1=wall, 0=blank, 1=dot, 2=energizer 
+  private int content; // -2=barrier -1=wall, 0=blank, 1=dot, 2=energizer
+                       // 3-8=characters
   private int wallType; 
   // ======== wallType definitions ========
   // 0=none
@@ -40,6 +41,7 @@ public class Tile extends JLabel {
       content = 0;
       ImageIcon icon = new ImageIcon("graphics/default.png");
       setIcon(icon);
+      repaint();
     }
   }
 }
